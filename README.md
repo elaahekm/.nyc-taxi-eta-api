@@ -9,9 +9,10 @@ Trained on a random sample of 1,000,000 yellow taxi trips (January 2015), evalua
 | Model | MAE (minutes) |
 |---|---|
 | Baseline (always predict the median, ~10 min) | 6.24 |
-| HistGradientBoostingRegressor | 4.60 |
+| HistGradientBoostingRegressor (zones, hour, day) | 4.60 |
+| Same model + distance between zone centers | 3.24 |
 
-The model reduces the average error by about 26% compared to the baseline.
+Adding the distance between pickup and dropoff zone centers reduced the error by about 48% compared to the baseline.
 
 ## Data
 
@@ -22,7 +23,7 @@ The model reduces the average error by about 26% compared to the baseline.
 
 ## Features
 
-`PULocationID`, `DOLocationID`, `hour`, `day_of_week`, `is_weekend`
+`PULocationID`, `DOLocationID`, `hour`, `day_of_week`, `is_weekend` , `distance_km`
 
 ## Project structure
 
@@ -81,7 +82,7 @@ Library versions are pinned in `requirements.txt` so the saved model loads the s
 ## Limitations
 
 - Only one month of data, so the model does not capture seasonal effects.
-- The model knows the pickup and dropoff zones but not the distance between them.
+- The model knows the pickup and dropoff zones but not the distance.
 - No weather or live traffic information.
 - No automated tests yet, and the service is not deployed publicly.
 
