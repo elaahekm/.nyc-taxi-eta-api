@@ -6,7 +6,7 @@ from sklearn.metrics import mean_absolute_error
 
 df = pd.read_parquet("data/features.parquet")
 
-features = ["PULocationID", "DOLocationID", "hour", "day_of_week", "is_weekend"]
+features = ["PULocationID", "DOLocationID", "hour", "day_of_week", "is_weekend", "distance_km"]
 X = df[features]
 y = df["duration_min"]
 
@@ -20,7 +20,8 @@ predictions = model.predict(X_test)
 mae = mean_absolute_error(y_test, predictions)
 
 print("baseline MAE (min): 6.24")
-print("model MAE (min):", round(mae, 2))
+print("previous model MAE (min): 4.6")
+print("new model MAE (min):", round(mae, 2))
 
-joblib.dump(model, "eta_model_v2.joblib")
-print("saved eta_model_v2.joblib")
+joblib.dump(model, "eta_model_v3.joblib")
+print("saved eta_model_v3.joblib")
